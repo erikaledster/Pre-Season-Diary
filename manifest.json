@@ -1,6 +1,6 @@
 {
-  "name": "Pre-Season Diary",
-  "short_name": "Pre-Season",
+  "name": "Rugby Performance Diary",
+  "short_name": "Rugby Diary",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#fdf7fa",
