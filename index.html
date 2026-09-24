@@ -34,7 +34,7 @@ nav button{background:white;color:var(--muted);border-radius:0;font-size:12px;pa
 </style>
 </head>
 <body>
-<header><h1>🏉 Rugby Preseason Diary</h1><p>Log it. Track it. Build through preseason.</p></header>
+<header><h1>🏉 Rugby Preseason Diary <span style="font-size:11px;background:#fff;color:#111827;padding:3px 7px;border-radius:99px;vertical-align:middle">v2.1</span></h1><p>Log it. Track it. Build through preseason.</p></header>
 <main>
 <section id="home" class="screen active">
 <div class="card"><h2>Quick start</h2><p class="muted">Record exactly what happened at training, how hard it felt and how your body responded.</p><button id="newBtn">＋ Log training session</button></div>
@@ -222,7 +222,9 @@ function render(){
 }
 $("#export").onclick=()=>{const blob=new Blob([JSON.stringify({training:sessions,gym:gymData.sessions,prs:gymData.prs},null,2)],{type:"application/json"}),a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="rugby-preseason-diary-full.json";a.click();URL.revokeObjectURL(a.href)};
 $("#clearAll").onclick=()=>{if(confirm("Delete every saved training session? This cannot be undone.")){sessions=[];persist();render()}};
-if("serviceWorker"in navigator)navigator.serviceWorker.register("sw.js").catch(()=>{});
+if("serviceWorker"in navigator){
+ navigator.serviceWorker.register("sw.js?v=21").then(reg=>reg.update()).catch(()=>{});
+}
 render();
 </script>
 </body></html>
