@@ -1,230 +1,169 @@
 <!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
+<html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#111827">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Rugby Diary">
-<link rel="manifest" href="manifest.json">
-<title>Rugby Preseason Diary</title>
-<style>
-:root{--bg:#f3f4f6;--card:#fff;--text:#111827;--muted:#6b7280;--line:#e5e7eb;--accent:#111827;--soft:#eef2ff;--danger:#b91c1c}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:16px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;padding-bottom:84px}
-header{background:#111827;color:white;padding:20px 16px 18px;position:sticky;top:0;z-index:5}
-header h1{margin:0;font-size:22px}header p{margin:5px 0 0;color:#d1d5db;font-size:13px}
-main{max-width:760px;margin:auto;padding:14px}.screen{display:none}.screen.active{display:block}
-.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;margin-bottom:12px}
-h2{font-size:18px;margin:0 0 12px}.muted{color:var(--muted);font-size:13px}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.full{grid-column:1/-1}
-label{font-size:12px;font-weight:700;color:var(--muted);display:block;margin-bottom:5px}
-input,select,textarea{width:100%;font:inherit;padding:11px;border:1px solid var(--line);border-radius:10px;background:white;color:var(--text)}
-textarea{min-height:78px;resize:vertical}
-button{font:inherit;font-weight:700;border:0;border-radius:11px;padding:12px 14px;min-height:44px;background:var(--accent);color:white}
-button.secondary{background:#e5e7eb;color:var(--text)}button.danger{background:#fee2e2;color:var(--danger)}
-.actions{display:flex;gap:8px;flex-wrap:wrap}
-.scale{display:flex;gap:5px;flex-wrap:wrap}.scale label{margin:0}.scale input{position:absolute;opacity:0}.scale span{display:grid;place-items:center;width:38px;height:38px;border:1px solid var(--line);border-radius:8px;background:white}.scale input:checked+span{background:var(--soft);border-color:#6366f1;font-weight:800}
-.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.metric{background:#f9fafb;border:1px solid var(--line);border-radius:12px;padding:12px}.metric b{font-size:20px;display:block}.metric small{color:var(--muted)}
-.bar{height:9px;background:#e5e7eb;border-radius:99px;overflow:hidden}.bar i{display:block;height:100%;background:#111827}
-.entry{padding:13px 0;border-top:1px solid var(--line)}.entry:first-child{border-top:0}.tag{display:inline-block;background:#f3f4f6;border-radius:99px;padding:4px 7px;font-size:11px;margin:2px}
-nav{position:fixed;bottom:0;left:0;right:0;background:white;border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(4,1fr);z-index:10;padding-bottom:env(safe-area-inset-bottom)}
-nav button{background:white;color:var(--muted);border-radius:0;font-size:12px;padding:10px 4px}nav button.active{color:#111827}
-.setrow{display:grid;grid-template-columns:34px 42px 1fr 1fr;gap:7px;align-items:center;margin:7px 0}.setrow input{min-width:0;padding:9px}.setrow input[type="checkbox"]{width:20px;height:20px}.exercise{border-top:1px solid var(--line);padding-top:12px;margin-top:12px}.prgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.prcard{background:#f9fafb;border:1px solid var(--line);border-radius:12px;padding:11px}.prcard b{display:block}.gymhint{font-size:12px;color:var(--muted);margin-top:6px}@media(max-width:520px){.grid{grid-template-columns:1fr}.full{grid-column:auto}.metrics{grid-template-columns:1fr 1fr 1fr}}
-</style>
-</head>
+<meta name="theme-color" content="#8f174f">
+<link rel="manifest" href="manifest.json"><link rel="apple-touch-icon" href="icon.png">
+<title>Pre-Season Diary</title><style>
+:root{--bg:#fdf7fa;--card:#fff;--text:#2a1821;--muted:#735c67;--line:#ead7df;--accent:#8f174f;--good:#15803d;--warn:#b45309;--bad:#b91c1c;--purple:#7c3aed}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",sans-serif;padding-bottom:90px}
+header{background:#8f174f;color:#fff;padding:18px 18px 20px;position:sticky;top:0;z-index:10}header h1{margin:0;font-size:22px}header p{margin:5px 0 0;color:#cbd5e1;font-size:13px}
+nav{display:flex;gap:7px;overflow:auto;padding:10px 12px;background:#fff;border-bottom:1px solid var(--line);position:sticky;top:73px;z-index:9}
+nav button{border:0;background:#eef2f7;border-radius:10px;padding:9px 13px;font-weight:700;white-space:nowrap;color:#374151}nav button.active{background:var(--accent);color:#fff}
+main{max-width:760px;margin:auto;padding:14px}.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;margin-bottom:12px;box-shadow:0 1px 2px #00000008}
+h2{font-size:19px;margin:3px 0 12px}h3{font-size:15px;margin:0 0 9px}.muted{color:var(--muted);font-size:13px}
+.exercise{border-top:1px solid var(--line);padding:13px 0}.exercise:first-of-type{border-top:0}.row{display:flex;align-items:center;gap:10px}.row input[type=checkbox]{width:22px;height:22px;accent-color:var(--accent)}.ename{font-weight:700;flex:1}.dose{font-size:13px;color:var(--muted);margin-top:4px;margin-left:32px}
+.inputs{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin:10px 0 0 32px}.inputs label,.metric label{font-size:11px;color:var(--muted);display:block}.inputs input,.metric input,.notes,.select{width:100%;margin-top:3px;border:1px solid #d1d5db;border-radius:9px;padding:9px;background:#fff;font-size:16px}
+button.primary{width:100%;border:0;border-radius:11px;padding:12px;background:var(--accent);color:white;font-weight:800;font-size:15px}.smallbtn{border:1px solid var(--line);background:white;border-radius:9px;padding:8px 10px;font-weight:700}
+.metrics{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}.metric{background:#f8fafc;border-radius:11px;padding:9px}.metric input{margin-top:5px}.sliderMetric input[type=range]{width:100%;accent-color:var(--accent);padding:0}.sliderHead{display:flex;justify-content:space-between;align-items:center;gap:8px}.sliderHead b{font-size:13px;color:var(--text)}
+.bar{height:10px;background:#e5e7eb;border-radius:10px;overflow:hidden}.bar>i{display:block;height:100%;background:var(--accent);width:0}
+.notice{padding:12px;border-radius:12px;background:#eff6ff;color:#1e40af;font-size:13px;margin-bottom:12px}.warning{background:#fff7ed;color:#9a3412}.good{background:#ecfdf3;color:#166534}.danger{background:#fef2f2;color:#991b1b}
+.tag{display:inline-block;padding:4px 7px;border-radius:8px;background:#eef2ff;color:#3730a3;font-size:11px;font-weight:700}.pill{display:inline-block;padding:4px 8px;border-radius:999px;background:#f3f4f6;font-size:11px;font-weight:700}
+.grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.stat{background:#f8fafc;border-radius:12px;padding:12px}.stat b{font-size:22px}.stat small{color:var(--muted)}
+.progressrow{display:flex;justify-content:space-between;gap:8px;align-items:center;margin:8px 0}.progressrow span{font-size:12px;color:var(--muted)}
+canvas{width:100%;height:190px;border:1px solid var(--line);border-radius:12px;background:#fff}.checklist{padding-left:20px}.checklist li{margin:8px 0}
+.timer{font-size:42px;text-align:center;font-variant-numeric:tabular-nums;margin:10px}.timerBtns{display:flex;gap:8px}.timerBtns button{flex:1}
+.footer{font-size:11px;color:var(--muted);text-align:center;padding:15px}.hidden{display:none}.weekTabs{display:flex;gap:7px;overflow:auto;padding-bottom:2px}.weekTabs button{border:0;background:#eef2f7;border-radius:10px;padding:9px 12px;font-weight:800;white-space:nowrap;color:#374151}.weekTabs button.active{background:var(--accent);color:#fff}.weekTimer{margin-top:14px;padding-top:14px;border-top:1px solid var(--line)}
+@media(min-width:600px){.metrics{grid-template-columns:repeat(5,1fr)}.inputs{grid-template-columns:repeat(5,1fr)}}
+
+.runBlock{margin:12px 0;border:1px solid rgba(128,0,64,.14);border-radius:12px;overflow:hidden;background:#fff7fb}.runBlockTitle{font-weight:800;font-size:.78rem;letter-spacing:.06em;padding:9px 12px;background:#f4d7e5;color:#7d174b}.runBlockText{padding:11px 12px;line-height:1.5;color:#3f2733}.runBlock+.runBlock{margin-top:10px}
+
+header{padding-top:calc(18px + env(safe-area-inset-top));}
+nav{top:calc(73px + env(safe-area-inset-top));}
+.sessionChoice{display:flex;gap:7px;overflow:auto;padding-bottom:4px}
+.sessionChoice button{border:0;background:#eef2f7;border-radius:10px;padding:9px 12px;font-weight:800;white-space:nowrap;color:#374151}
+.sessionChoice button.active{background:var(--accent);color:#fff}
+.checkReveal{margin-top:10px;padding:10px;border:1px solid var(--line);border-radius:11px;background:#f8fafc}
+.bodyrow{display:grid;grid-template-columns:1fr;gap:8px;margin-bottom:9px}
+.otherrow{display:grid;grid-template-columns:1fr 100px;gap:8px;margin-top:8px}
+.rangeFull{width:100%;accent-color:var(--accent)}
+@media(min-width:600px){.bodyrow{grid-template-columns:1fr 1fr}}
+</style></head>
 <body>
-<header><h1>🏉 Rugby Preseason Diary <span style="font-size:11px;background:#fff;color:#111827;padding:3px 7px;border-radius:99px;vertical-align:middle">v2.1</span></h1><p>Log it. Track it. Build through preseason.</p></header>
-<main>
-<section id="home" class="screen active">
-<div class="card"><h2>Quick start</h2><p class="muted">Record exactly what happened at training, how hard it felt and how your body responded.</p><button id="newBtn">＋ Log training session</button></div>
-<div class="card"><h2>This preseason</h2><div class="metrics"><div class="metric"><b id="mSessions">0</b><small>Sessions</small></div><div class="metric"><b id="mMinutes">0</b><small>Minutes</small></div><div class="metric"><b id="mLoad">0</b><small>Training load</small></div></div></div>
-<div class="card"><h2>Latest session</h2><div id="latest" class="muted">No sessions logged yet.</div></div>
-</section>
-
-<section id="log" class="screen">
-<div class="card"><h2>Training session</h2><form id="form">
-<div class="grid">
-<div><label>Date</label><input id="date" type="date" required></div>
-<div><label>Preseason week</label><input id="week" type="number" min="1" value="1"></div>
-<div><label>Session type</label><select id="type"><option>Team training</option><option>Skills</option><option>Conditioning</option><option>Gym</option><option>Sprints</option><option>Match / trial</option><option>Recovery</option><option>Other</option></select></div>
-<div><label>Duration (minutes)</label><input id="duration" type="number" min="1" max="300" required></div>
-<div class="full"><label>What happened at training?</label><textarea id="what" placeholder="Warm-up, passing, kicking, attack, defence, contact, conditioning, game..."></textarea></div>
-</div>
-
-<h2 style="margin-top:18px">Intensity</h2>
-<div class="grid">
-<div><label>Overall RPE (1–10)</label><div class="scale" data-name="rpe"></div></div>
-<div><label>Fitness / conditioning</label><div class="scale" data-name="fitness"></div></div>
-<div><label>Contact intensity</label><div class="scale" data-name="contact"></div></div>
-<div><label>Speed / sprint intensity</label><div class="scale" data-name="speed"></div></div>
-<div><label>Technical difficulty</label><div class="scale" data-name="technical"></div></div>
-<div><label>Overall feel</label><select id="hard"><option>Very easy</option><option>Easy</option><option>Moderate</option><option>Hard</option><option>Very hard</option><option>Max effort</option></select></div>
-</div>
-
-<h2 style="margin-top:18px">How did you feel?</h2>
-<div class="grid">
-<div><label>Before training</label><div class="scale" data-name="before"></div></div>
-<div><label>During training</label><div class="scale" data-name="during"></div></div>
-<div><label>After training</label><div class="scale" data-name="after"></div></div>
-<div><label>Energy after</label><input id="energy" type="number" min="1" max="10" value="7"></div>
-</div>
-
-<h2 style="margin-top:18px">Body check — pain 0–10</h2>
-<div class="grid">
-<div><label>Knee</label><input id="knee" type="number" min="0" max="10" value="0"></div>
-<div><label>Hamstring</label><input id="hamstring" type="number" min="0" max="10" value="0"></div>
-<div><label>Quad</label><input id="quad" type="number" min="0" max="10" value="0"></div>
-<div><label>Calf</label><input id="calf" type="number" min="0" max="10" value="0"></div>
-<div><label>Other</label><input id="otherPain" type="number" min="0" max="10" value="0"></div>
-<div><label>Post-training soreness</label><input id="soreness" type="number" min="0" max="10" value="0"></div>
-</div>
-
-<h2 style="margin-top:18px">Performance</h2>
-<div class="grid">
-<div><label>What went well?</label><textarea id="went"></textarea></div>
-<div><label>What was difficult?</label><textarea id="difficult"></textarea></div>
-<div><label>Coach feedback</label><textarea id="coach"></textarea></div>
-<div><label>Something to improve</label><textarea id="improve"></textarea></div>
-<div class="full"><label>Anything else to remember?</label><textarea id="notes"></textarea></div>
-</div>
-
-<h2 style="margin-top:18px">Recovery</h2>
-<div class="grid">
-<div><label>Sleep last night (hours)</label><input id="sleep" type="number" min="0" max="16" step=".5" value="8"></div>
-<div><label>Recovery completed</label><select id="recovery"><option>Yes</option><option>Partly</option><option>No</option></select></div>
-</div>
-<div class="actions" style="margin-top:16px"><button type="submit">Save session</button><button type="button" class="secondary" id="cancel">Cancel</button></div>
-<p id="msg" class="muted"></p>
-</form></div>
-</section>
-
-<section id="dashboard" class="screen">
-<div class="card"><h2>📊 Dashboard</h2><div class="metrics"><div class="metric"><b id="dSessions">0</b><small>Sessions</small></div><div class="metric"><b id="dMinutes">0</b><small>Minutes</small></div><div class="metric"><b id="dLoad">0</b><small>Total load</small></div><div class="metric"><b id="dRpe">0</b><small>Avg RPE</small></div><div class="metric"><b id="dPain">0</b><small>Avg pain</small></div><div class="metric"><b id="dHard">—</b><small>Highest RPE</small></div></div></div>
-<div class="card"><h2>Weekly workload</h2><div id="weeks" class="muted">No data yet.</div></div>
-<div class="card"><h2>Recent sessions</h2><div id="recent" class="muted">No sessions yet.</div></div>
-</section>
-
-
-<section id="gym" class="screen">
-  <div class="card">
-    <h2>🏋️ Gym session</h2>
-    <p class="muted">From Week 6 onward, record each set, the weight used and reps. PRs update automatically from your completed sets.</p>
-    <div class="grid">
-      <div><label>Date</label><input id="gymDate" type="date"></div>
-      <div><label>Preseason week</label><input id="gymWeek" type="number" min="1" value="6"></div>
-      <div><label>Gym RPE (1–10)</label><input id="gymRpe" type="number" min="1" max="10" value="7"></div>
-      <div><label>Session duration (minutes)</label><input id="gymDuration" type="number" min="0" value="60"></div>
-      <div class="full"><label>Gym notes</label><textarea id="gymNotes" placeholder="Technique, how the session felt, anything to change next time..."></textarea></div>
-    </div>
-    <div id="gymExercises"></div>
-    <div class="actions" style="margin-top:16px"><button id="saveGym">Save gym session</button></div>
-    <p id="gymMsg" class="muted"></p>
-  </div>
-  <div class="card">
-    <h2>🏆 Automatic PR board</h2>
-    <p class="muted">Your best estimated 1RM is updated automatically whenever a completed set beats your previous best.</p>
-    <div id="prBoard"></div>
-  </div>
-</section>
-
-<section id="history" class="screen">
-<div class="card"><h2>📖 Training history</h2><div class="actions"><button id="export">Export diary</button><button id="clearAll" class="danger">Delete all data</button></div><div id="historyList" style="margin-top:12px"></div></div>
-</section>
-</main>
-
-<nav><button data-screen="home" class="active">🏠<br>Home</button><button data-screen="dashboard">📊<br>Dashboard</button><button data-screen="gym">🏋️<br>Gym / PRs</button><button data-screen="history">📖<br>History</button></nav>
-
+<header><h1>Pre-Season Diary</h1><p>Sessions → workload → body response → gym → weekly review</p></header>
+<nav id="nav"></nav><main id="app"></main>
+<div class="footer">Your rugby pre-season training diary.</div>
 <script>
-const KEY="rugby_preseason_diary_v1";
-let sessions=JSON.parse(localStorage.getItem(KEY)||"[]");
-const GYM_KEY="rugby_preseason_gym_v2";
-let gymData=JSON.parse(localStorage.getItem(GYM_KEY)||'{"sessions":[],"prs":{}}');
-const GYM_EXERCISES=["Squat","Bench press","Romanian deadlift","Bulgarian split squat","Hip thrust","Calf raise","Leg press","Lat pulldown","Row","Other"];
-const $=s=>document.querySelector(s), $$=s=>document.querySelectorAll(s);
+const KEY="preSeasonDiaryV3";
+let state=JSON.parse(localStorage.getItem(KEY)||'{"sessions":[],"prs":{}}');
+let page=localStorage.getItem("psPage")||"dashboard";
+let currentWeek=Number(localStorage.getItem("psWeek")||1);
+let selectedSession=0;
+const exercises=["Squat","Bench press","Romanian deadlift","Bulgarian split squat","Hip thrust","Calf raise","Leg press","Lat pulldown","Row","Other"];
+const $=s=>document.querySelector(s);
 const esc=x=>String(x??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-function today(){return new Date().toISOString().slice(0,10)}
-$("#date").value=today();
-$("#gymDate").value=today();
-function persistGym(){localStorage.setItem(GYM_KEY,JSON.stringify(gymData))}
-function est1RM(w,r){return w>0&&r>0?w*(1+r/30):0}
-function buildGym(){
- $("#gymExercises").innerHTML=GYM_EXERCISES.map((name,i)=>`<div class="exercise"><h2>${esc(name)}</h2><div class="setrow"><b>Set</b><b>Done</b><b>Weight (kg)</b><b>Reps</b></div>${[1,2,3,4,5].map(s=>`<div class="setrow"><span>${s}</span><input id="gd_${i}_${s}" type="checkbox" aria-label="${esc(name)} set ${s} complete"><input id="gw_${i}_${s}" type="number" min="0" step=".5" placeholder="kg" aria-label="${esc(name)} set ${s} weight"><input id="gr_${i}_${s}" type="number" min="0" placeholder="reps" aria-label="${esc(name)} set ${s} reps"></div>`).join("")}</div>`).join("");
+const today=()=>new Date().toISOString().slice(0,10);
+function save(){localStorage.setItem(KEY,JSON.stringify(state))}
+function setPage(p){page=p;localStorage.setItem("psPage",p);render()}
+function setWeek(w){currentWeek=Number(w);selectedSession=0;localStorage.setItem("psWeek",w);render()}
+function renderNav(){
+ const tabs=[["dashboard","Dashboard"],["week","Weeks"],["gym","Gym"],["prs","PR Weights"],["history","History"]];
+ $("#nav").innerHTML=tabs.map(([p,n])=>`<button class="${page===p?'active':''}" onclick="setPage('${p}')">${n}</button>`).join("");
 }
-buildGym();
-document.querySelectorAll(".scale").forEach(box=>{
- const name=box.dataset.name;
- for(let i=1;i<=10;i++){const l=document.createElement("label");l.innerHTML=`<input type="radio" name="${name}" value="${i}" ${i===1?"checked":""}><span>${i}</span>`;box.appendChild(l)}
-});
-function scale(n){return Number(document.querySelector(`input[name="${n}"]:checked`)?.value||1)}
-function persist(){localStorage.setItem(KEY,JSON.stringify(sessions))}
-function show(id){$$(".screen").forEach(x=>x.classList.toggle("active",x.id===id));$$("nav button").forEach(x=>x.classList.toggle("active",x.dataset.screen===id));render()}
-$$("nav button").forEach(b=>b.addEventListener("click",()=>show(b.dataset.screen)));
-$("#newBtn").onclick=()=>show("log");$("#cancel").onclick=()=>show("home");
-
-$("#form").addEventListener("submit",e=>{
- e.preventDefault();
- const duration=Math.max(1,Number($("#duration").value)||0),rpe=scale("rpe");
- const s={id:Date.now(),date:$("#date").value,week:Number($("#week").value)||1,type:$("#type").value,duration,rpe,load:duration*rpe,
- what:$("#what").value,fitness:scale("fitness"),contact:scale("contact"),speed:scale("speed"),technical:scale("technical"),hard:$("#hard").value,
- before:scale("before"),during:scale("during"),after:scale("after"),energy:Number($("#energy").value)||0,
- knee:Number($("#knee").value)||0,hamstring:Number($("#hamstring").value)||0,quad:Number($("#quad").value)||0,calf:Number($("#calf").value)||0,otherPain:Number($("#otherPain").value)||0,soreness:Number($("#soreness").value)||0,
- went:$("#went").value,difficult:$("#difficult").value,coach:$("#coach").value,improve:$("#improve").value,notes:$("#notes").value,sleep:Number($("#sleep").value)||0,recovery:$("#recovery").value};
- sessions.unshift(s);persist();$("#msg").textContent=`Saved — training load ${s.load}.`;render();setTimeout(()=>show("home"),500);
-});
-
-$("#saveGym").onclick=()=>{
- const gs={id:Date.now(),date:$("#gymDate").value,week:Number($("#gymWeek").value)||6,rpe:Number($("#gymRpe").value)||0,duration:Number($("#gymDuration").value)||0,notes:$("#gymNotes").value,exercises:[]};
- let newPRs=[];
- GYM_EXERCISES.forEach((name,i)=>{
-   const sets=[];
-   for(let n=1;n<=5;n++){
-     const done=$(`#gd_${i}_${n}`).checked,weight=Number($(`#gw_${i}_${n}`).value)||0,reps=Number($(`#gr_${i}_${n}`).value)||0;
-     if(done||weight||reps){
-       const e1rm=est1RM(weight,reps);
-       sets.push({set:n,done,weight,reps,e1rm});
-       if(done&&e1rm>(gymData.prs[name]?.e1rm||0)){
-         gymData.prs[name]={e1rm,weight,reps,date:gs.date};
-         newPRs.push(`${name}: ${e1rm.toFixed(1)} kg e1RM`);
-       }
-     }
-   }
-   if(sets.length)gs.exercises.push({name,sets});
- });
- gymData.sessions.unshift(gs);persistGym();
- $("#gymMsg").textContent=newPRs.length?`Saved — new PR${newPRs.length>1?"s":""}: ${newPRs.join(" · ")}`:"Saved — no new PR this session.";
- buildGym();$("#gymDate").value=today();render();
-};
-
+function weekSessions(w){return state.sessions.filter(s=>Number(s.week)===Number(w))}
+function slider(label,id,val=5,min=1){
+ return `<div class="metric sliderMetric"><div class="sliderHead"><label>${label}</label><b id="${id}Out">${val}/10</b></div><input class="rangeFull" id="${id}" type="range" min="${min}" max="10" step="1" value="${val}" oninput="document.getElementById('${id}Out').textContent=this.value+'/10'"></div>`;
+}
+function bodySlider(label,id,val=0){return slider(label,id,val,0)}
+function renderDashboard(){
+ const ss=state.sessions, mins=ss.reduce((a,s)=>a+(+s.duration||0),0), load=ss.reduce((a,s)=>a+(+s.load||0),0);
+ const wk=weekSessions(currentWeek), wload=wk.reduce((a,s)=>a+(+s.load||0),0);
+ return `<section class="card"><h2>Dashboard</h2><div class="grid2">
+ <div class="stat"><small>Sessions</small><br><b>${ss.length}</b></div>
+ <div class="stat"><small>Total minutes</small><br><b>${mins}</b></div>
+ <div class="stat"><small>Total load</small><br><b>${load}</b></div>
+ <div class="stat"><small>PRs</small><br><b>${Object.keys(state.prs||{}).length}</b></div></div></section>
+ <section class="card"><h3>This week</h3><div class="grid2"><div class="stat"><small>Week</small><br><b>${currentWeek}</b></div><div class="stat"><small>Sessions logged</small><br><b>${wk.length}</b></div><div class="stat"><small>Week load</small><br><b>${wload}</b></div><div class="stat"><small>Avg RPE</small><br><b>${wk.length?(wk.reduce((a,s)=>a+s.rpe,0)/wk.length).toFixed(1):'—'}</b></div></div>
+ <button class="primary" style="margin-top:10px" onclick="setPage('week')">Open Week ${currentWeek}</button></section>
+ <section class="card"><h3>Weeks 1–12</h3>${Array.from({length:12},(_,i)=>i+1).map(w=>{let a=weekSessions(w);return `<div class="progressrow"><span>Week ${w}</span><span>${a.length} session${a.length===1?'':'s'}</span></div><div class="bar"><i style="width:${Math.min(100,a.length*25)}%"></i></div>`}).join("")}</section>`;
+}
+function renderWeek(){
+ const ss=weekSessions(currentWeek);
+ let body=`<section class="card"><h2>Weeks</h2><div class="weekTabs">${Array.from({length:12},(_,i)=>i+1).map(w=>`<button class="${currentWeek===w?'active':''}" onclick="setWeek(${w})">Week ${w}</button>`).join("")}</div></section>`;
+ body+=`<section class="card"><div class="row"><div style="flex:1"><h2>Week ${currentWeek}</h2><div class="muted">Add as many sessions as you have this week.</div></div><span class="tag">PRE-SEASON</span></div>
+ <button class="primary" onclick="newSession()">＋ Add session to Week ${currentWeek}</button></section>`;
+ if(ss.length){
+  body+=`<section class="card"><h3>Sessions this week</h3><div class="sessionChoice">${ss.map((s,i)=>`<button class="${selectedSession===i?'active':''}" onclick="selectedSession=${i};render()">Session ${i+1}</button>`).join("")}</div></section>`;
+  const s=ss[selectedSession]||ss[0];
+  body+=sessionSummary(s);
+ }
+ if(isSunday()) body+=weeklyReview(currentWeek);
+ return body;
+}
+function isSunday(){return new Date().getDay()===0}
+function newSession(){
+ state.edit={id:Date.now(),week:currentWeek,date:today(),type:"Team training",duration:60,rpe:5,fitness:5,contactOn:false,contact:5,speedOn:false,speed:5,during:5,after:5,energy:7,overall:0,knee:0,shoulder:0,calf:0,achilles:0,ankle:0,otherOn:false,otherArea:"",otherRating:0};
+ save();page="log";render();
+}
+function sessionSummary(s){
+ return `<section class="card"><h2>${esc(s.date)} · ${esc(s.type)}</h2><div class="muted">${s.duration} min · RPE ${s.rpe}/10 · Load ${s.load}</div>
+ <p><b>Main focuses:</b> ${esc(s.focus||"—")}</p><p><b>Drills that worked well / enjoyed:</b> ${esc(s.drills||"—")}</p>
+ <p><b>Coach feedback:</b> ${esc(s.coach||"—")}</p></section>`;
+}
+function renderLog(){
+ const s=state.edit||{};
+ return `<section class="card"><h2>Training session</h2>
+ <div class="grid2"><div class="metric"><label>Date</label><input id="date" type="date" value="${s.date||today()}"></div><div class="metric"><label>Week</label><input id="weekNo" type="number" min="1" max="52" value="${s.week||currentWeek}"></div>
+ <div class="metric"><label>Session type</label><select class="select" id="type"><option>Team training</option><option>Skills</option><option>Conditioning</option><option>Gym</option><option>Sprints</option><option>Match / trial</option><option>Recovery</option><option>Other</option></select></div>
+ <div class="metric sliderMetric"><div class="sliderHead"><label>Duration</label><b id="durOut">${s.duration||60} min</b></div><input id="duration" type="range" min="15" max="180" step="5" value="${s.duration||60}" oninput="durOut.textContent=this.value+' min'"></div></div>
+ <h3 style="margin-top:16px">Session focus</h3><label class="muted">What were the main focuses of this session?</label><textarea class="notes" id="focus" rows="3">${esc(s.focus||"")}</textarea>
+ <h3 style="margin-top:16px">Intensity</h3><div class="metrics">${slider("Overall RPE","rpe",s.rpe||5)}${slider("Fitness / conditioning","fitness",s.fitness||5)}</div>
+ <div class="checkReveal"><label class="row"><input id="contactOn" type="checkbox" ${s.contactOn?'checked':''} onchange="toggleReveal('contactBox',this.checked)"><span class="ename">Contact intensity</span></label><div id="contactBox" class="${s.contactOn?'':'hidden'}" style="margin-top:8px">${slider("Contact rating","contact",s.contact||5)}</div></div>
+ <div class="checkReveal"><label class="row"><input id="speedOn" type="checkbox" ${s.speedOn?'checked':''} onchange="toggleReveal('speedBox',this.checked)"><span class="ename">Speed / sprint intensity</span></label><div id="speedBox" class="${s.speedOn?'':'hidden'}" style="margin-top:8px">${slider("Speed / sprint rating","speed",s.speed||5)}</div></div>
+ <h3 style="margin-top:16px">How did you feel?</h3><div class="metrics">${slider("During training","during",s.during||5)}${slider("After training","after",s.after||5)}${slider("Energy after","energy",s.energy||7)}</div>
+ <h3 style="margin-top:16px">Body check — 0–10</h3><div class="metrics">${bodySlider("Overall","overall",s.overall||0)}${bodySlider("Knee","knee",s.knee||0)}${bodySlider("Shoulder","shoulder",s.shoulder||0)}${bodySlider("Calf","calf",s.calf||0)}${bodySlider("Achilles","achilles",s.achilles||0)}${bodySlider("Ankle","ankle",s.ankle||0)}</div>
+ <div class="checkReveal"><label class="row"><input id="otherOn" type="checkbox" ${s.otherOn?'checked':''} onchange="toggleReveal('otherBox',this.checked)"><span class="ename">Other area</span></label><div id="otherBox" class="${s.otherOn?'':'hidden'}"><div class="otherrow"><input id="otherArea" placeholder="Area e.g. hamstring" value="${esc(s.otherArea||"")}"><input id="otherRating" type="number" min="0" max="10" placeholder="0–10" value="${s.otherRating||0}"></div></div></div>
+ <h3 style="margin-top:16px">Performance</h3><label>What went well?</label><textarea class="notes" id="went">${esc(s.went||"")}</textarea>
+ <label>What was difficult?</label><textarea class="notes" id="difficult">${esc(s.difficult||"")}</textarea>
+ <label>Anything to improve?</label><textarea class="notes" id="improve">${esc(s.improve||"")}</textarea>
+ <h3 style="margin-top:16px">Specific drills</h3><label>Any specific drills that worked well or you enjoyed?</label><textarea class="notes" id="drills">${esc(s.drills||"")}</textarea>
+ <h3 style="margin-top:16px">Coach feedback</h3><textarea class="notes" id="coach">${esc(s.coach||"")}</textarea>
+ <button class="primary" style="margin-top:14px" onclick="saveSession()">Save session</button></section>`;
+}
+function toggleReveal(id,on){document.getElementById(id).classList.toggle("hidden",!on)}
+function v(id){return document.getElementById(id)?.value??""}
+function num(id){return Number(v(id))||0}
+function saveSession(){
+ const s={id:state.edit?.id||Date.now(),date:v("date"),week:num("weekNo"),type:v("type"),duration:num("duration"),focus:v("focus"),rpe:num("rpe"),fitness:num("fitness"),
+ contactOn:$("#contactOn").checked,contact:num("contact"),speedOn:$("#speedOn").checked,speed:num("speed"),during:num("during"),after:num("after"),energy:num("energy"),
+ overall:num("overall"),knee:num("knee"),shoulder:num("shoulder"),calf:num("calf"),achilles:num("achilles"),ankle:num("ankle"),otherOn:$("#otherOn").checked,otherArea:v("otherArea"),otherRating:num("otherRating"),
+ went:v("went"),difficult:v("difficult"),improve:v("improve"),drills:v("drills"),coach:v("coach")};
+ s.load=s.duration*s.rpe; state.sessions.push(s);delete state.edit;currentWeek=s.week;save();page="week";selectedSession=weekSessions(currentWeek).length-1;render();
+}
+function renderGym(){
+ let body=`<section class="card"><h2>Gym</h2><p class="muted">Set tracking matches your rehab app: tick each set and record the weight beside it. PRs update automatically.</p><label>Date</label><input class="select" id="gymDate" type="date" value="${today()}"><label>Week</label><input class="select" id="gymWeek" type="number" min="1" value="${currentWeek}">`;
+ exercises.forEach((e,j)=>{body+=`<div class="exercise"><div class="ename">${e}</div><div style="display:flex;flex-direction:column;gap:8px;margin-top:10px">${[0,1,2,3].map(si=>`<div style="display:flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:10px;padding:8px 10px;background:#fff;font-size:13px"><label style="display:flex;align-items:center;gap:6px;flex:1"><input id="gc_${j}_${si}" type="checkbox" style="width:21px;height:21px;accent-color:var(--accent)"><span>Set ${si+1}</span></label><label style="display:flex;align-items:center;gap:4px;font-size:11px;color:var(--muted)"><span>kg</span><input id="gw_${j}_${si}" type="number" min="0" step=".5" placeholder="Weight" style="width:78px;border:1px solid #d1d5db;border-radius:8px;padding:7px;background:#fff;font-size:14px"></label><input id="gr_${j}_${si}" type="number" min="0" placeholder="reps" style="width:65px;border:1px solid #d1d5db;border-radius:8px;padding:7px"></div>`).join("")}</div></div>`});
+ return body+`<button class="primary" onclick="saveGym()">Save gym session</button></section>`;
+}
+function saveGym(){
+ const date=v("gymDate"),week=num("gymWeek");let exs=[];
+ exercises.forEach((name,j)=>{let sets=[];for(let si=0;si<4;si++){let done=$(`#gc_${j}_${si}`).checked,w=num(`gw_${j}_${si}`),r=num(`gr_${j}_${si}`);if(done||w||r){sets.push({done,weight:w,reps:r});if(done&&w>0){let old=Number(state.prs[name]?.weight||0);if(w>old)state.prs[name]={weight:w,reps:r,date}}}}if(sets.length)exs.push({name,sets})});
+ state.gym=state.gym||[];state.gym.unshift({id:Date.now(),date,week,exercises:exs});save();render();
+}
 function renderPRs(){
- const entries=Object.entries(gymData.prs).sort((a,b)=>a[0].localeCompare(b[0]));
- $("#prBoard").innerHTML=entries.length?`<div class="prgrid">${entries.map(([name,p])=>`<div class="prcard"><b>${esc(name)}</b><span>${p.e1rm.toFixed(1)} kg e1RM</span><div class="muted">${p.weight} kg × ${p.reps} reps · ${esc(p.date)}</div></div>`).join("")}</div>`:'<p class="muted">No gym PRs yet. Complete a set with weight and reps to start your PR board.</p>';
+ const p=state.prs||{};return `<section class="card"><h2>PR Weights</h2><p class="muted">Automatically updated from completed gym sets, just like your rehab tracker.</p></section><section class="card"><div class="grid2">${exercises.map(name=>{let x=p[name]||{};return `<div class="metric"><label><b>${name}</b></label><input type="number" min="0" step=".5" value="${x.weight??''}" onchange="manualPR('${name.replaceAll("'","\\'")}',this.value)"><small class="muted">${x.date?'Last updated '+x.date:'No PR recorded yet'}</small></div>`}).join("")}</div></section>`;
 }
-
+function manualPR(name,w){state.prs[name]={weight:Number(w)||0,date:today()};save();render()}
+function weeklyReview(w){
+ const a=weekSessions(w),load=a.reduce((x,s)=>x+s.load,0),avg=a.length?(a.reduce((x,s)=>x+s.rpe,0)/a.length).toFixed(1):"—";
+ return `<section class="card"><h3>End-of-week review</h3><p class="muted">Shown on Sundays only.</p><div class="grid2"><div class="stat"><small>Sessions</small><br><b>${a.length}</b></div><div class="stat"><small>Training load</small><br><b>${load}</b></div><div class="stat"><small>Avg RPE</small><br><b>${avg}</b></div><div class="stat"><small>Minutes</small><br><b>${a.reduce((x,s)=>x+s.duration,0)}</b></div></div><div class="timerBtns" style="margin-top:12px"><button class="primary" onclick="analyseWeek(${w})">Analyse Week ${w}</button><button class="smallbtn" onclick="exportWeek(${w})">Export Week ${w}</button></div></section>`;
+}
+function analyseWeek(w){const a=weekSessions(w);alert(`WEEK ${w} REVIEW\n\nSessions: ${a.length}\nMinutes: ${a.reduce((x,s)=>x+s.duration,0)}\nTraining load: ${a.reduce((x,s)=>x+s.load,0)}\nAverage RPE: ${a.length?(a.reduce((x,s)=>x+s.rpe,0)/a.length).toFixed(1):'—'}`)}
+function exportWeek(w){const data={week:w,training:weekSessions(w),gym:(state.gym||[]).filter(x=>+x.week===+w),prs:state.prs};let b=new Blob([JSON.stringify(data,null,2)],{type:"application/json"}),a=document.createElement("a");a.href=URL.createObjectURL(b);a.download=`preseason-week-${w}.json`;a.click();URL.revokeObjectURL(a.href)}
+function renderHistory(){
+ let all=[...state.sessions.map(s=>({kind:"Training",...s})),...(state.gym||[]).map(g=>({kind:"Gym",...g}))].sort((a,b)=>String(b.date).localeCompare(String(a.date)));
+ return `<section class="card"><h2>History</h2>${all.map(x=>`<div class="exercise"><b>${esc(x.date)} · ${x.kind}</b><div class="muted">Week ${x.week}${x.kind==="Training"?` · ${x.duration} min · RPE ${x.rpe} · Load ${x.load}`:""}</div></div>`).join("")||'<p class="muted">No sessions logged yet.</p>'}</section>`;
+}
 function render(){
- const total=sessions.reduce((a,s)=>a+s.duration,0),load=sessions.reduce((a,s)=>a+s.load,0);
- $("#mSessions").textContent=sessions.length;$("#mMinutes").textContent=total;$("#mLoad").textContent=load;
- $("#dSessions").textContent=sessions.length;$("#dMinutes").textContent=total;$("#dLoad").textContent=load;
- $("#dRpe").textContent=sessions.length?(sessions.reduce((a,s)=>a+s.rpe,0)/sessions.length).toFixed(1):"0";
- $("#dHard").textContent=sessions.length?Math.max(...sessions.map(s=>s.rpe)):"—";
- const pains=sessions.flatMap(s=>[s.knee,s.hamstring,s.quad,s.calf,s.otherPain]);
- $("#dPain").textContent=pains.length?(pains.reduce((a,x)=>a+x,0)/pains.length).toFixed(1):"0";
- if(sessions[0])$("#latest").innerHTML=`<b>${esc(sessions[0].date)} · ${esc(sessions[0].type)}</b><p class="muted">${sessions[0].duration} min · RPE ${sessions[0].rpe}/10 · Load ${sessions[0].load}</p><p>${esc(sessions[0].what||"No description entered.")}</p>`;
- else $("#latest").textContent="No sessions logged yet.";
- const weeks={};sessions.forEach(s=>{weeks[s.week]??={load:0,min:0,count:0};weeks[s.week].load+=s.load;weeks[s.week].min+=s.duration;weeks[s.week].count++});
- const max=Math.max(1,...Object.values(weeks).map(x=>x.load));
- $("#weeks").innerHTML=Object.keys(weeks).sort((a,b)=>a-b).map(w=>`<div style="margin-bottom:14px"><div style="display:flex;justify-content:space-between"><b>Week ${esc(w)}</b><span>${weeks[w].count} sessions · ${weeks[w].min} min · ${weeks[w].load} load</span></div><div class="bar"><i style="width:${weeks[w].load/max*100}%"></i></div></div>`).join("")||"No data yet.";
- $("#recent").innerHTML=sessions.slice(0,5).map(s=>`<div class="entry"><b>${esc(s.date)}</b> · ${esc(s.type)} <span class="tag">RPE ${s.rpe}</span><span class="tag">Load ${s.load}</span><p class="muted">${esc(s.what||"No description.")}</p></div>`).join("")||"No sessions yet.";
- const trainingHistory=sessions.map(s=>`<div class="entry"><b>${esc(s.date)} · Week ${s.week}</b><br><span class="tag">${esc(s.type)}</span><span class="tag">${s.duration} min</span><span class="tag">RPE ${s.rpe}/10</span><span class="tag">Load ${s.load}</span><p><b>What happened:</b> ${esc(s.what||"—")}</p><p><b>Went well:</b> ${esc(s.went||"—")}</p><p><b>Improve:</b> ${esc(s.improve||"—")}</p><p class="muted">Knee ${s.knee}/10 · soreness ${s.soreness}/10 · sleep ${s.sleep}h</p></div>`).join("");
- const gymHistory=gymData.sessions.map(g=>`<div class="entry"><b>${esc(g.date)} · Week ${g.week}</b><br><span class="tag">Gym</span><span class="tag">${g.duration} min</span><span class="tag">RPE ${g.rpe}/10</span><p>${g.exercises.map(ex=>`<b>${esc(ex.name)}:</b> ${ex.sets.map(s=>`${s.weight}kg × ${s.reps}${s.done?" ✓":""}`).join(", ")}`).join("<br>")||"No sets recorded."}</p><p class="muted">${esc(g.notes||"")}</p></div>`).join("");
- $("#historyList").innerHTML=(trainingHistory+gymHistory)||'<p class="muted">No sessions yet.</p>';
- renderPRs();
-}
-$("#export").onclick=()=>{const blob=new Blob([JSON.stringify({training:sessions,gym:gymData.sessions,prs:gymData.prs},null,2)],{type:"application/json"}),a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="rugby-preseason-diary-full.json";a.click();URL.revokeObjectURL(a.href)};
-$("#clearAll").onclick=()=>{if(confirm("Delete every saved training session? This cannot be undone.")){sessions=[];persist();render()}};
-if("serviceWorker"in navigator){
- navigator.serviceWorker.register("sw.js?v=21").then(reg=>reg.update()).catch(()=>{});
+ renderNav();let body="";
+ if(page==="dashboard")body=renderDashboard();
+ if(page==="week")body=renderWeek();
+ if(page==="log")body=renderLog();
+ if(page==="gym")body=renderGym();
+ if(page==="prs")body=renderPRs();
+ if(page==="history")body=renderHistory();
+ $("#app").innerHTML=body;
+ if(page==="log"){let s=state.edit||{};$("#type").value=s.type||"Team training";}
 }
 render();
-</script>
-</body></html>
+if("serviceWorker"in navigator)navigator.serviceWorker.register("sw.js").catch(()=>{});
+</script></body></html>
