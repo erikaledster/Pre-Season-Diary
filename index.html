@@ -1,163 +1,18 @@
-<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#111827">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Rugby Diary">
-<link rel="manifest" href="manifest.json">
-<title>Rugby Preseason Diary</title>
-<style>
-:root{--bg:#f3f4f6;--card:#fff;--text:#111827;--muted:#6b7280;--line:#e5e7eb;--accent:#111827;--soft:#eef2ff;--danger:#b91c1c}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:16px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;padding-bottom:84px}
-header{background:#111827;color:white;padding:20px 16px 18px;position:sticky;top:0;z-index:5}
-header h1{margin:0;font-size:22px}header p{margin:5px 0 0;color:#d1d5db;font-size:13px}
-main{max-width:760px;margin:auto;padding:14px}.screen{display:none}.screen.active{display:block}
-.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;margin-bottom:12px}
-h2{font-size:18px;margin:0 0 12px}.muted{color:var(--muted);font-size:13px}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.full{grid-column:1/-1}
-label{font-size:12px;font-weight:700;color:var(--muted);display:block;margin-bottom:5px}
-input,select,textarea{width:100%;font:inherit;padding:11px;border:1px solid var(--line);border-radius:10px;background:white;color:var(--text)}
-textarea{min-height:78px;resize:vertical}
-button{font:inherit;font-weight:700;border:0;border-radius:11px;padding:12px 14px;min-height:44px;background:var(--accent);color:white}
-button.secondary{background:#e5e7eb;color:var(--text)}button.danger{background:#fee2e2;color:var(--danger)}
-.actions{display:flex;gap:8px;flex-wrap:wrap}
-.scale{display:flex;gap:5px;flex-wrap:wrap}.scale label{margin:0}.scale input{position:absolute;opacity:0}.scale span{display:grid;place-items:center;width:38px;height:38px;border:1px solid var(--line);border-radius:8px;background:white}.scale input:checked+span{background:var(--soft);border-color:#6366f1;font-weight:800}
-.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.metric{background:#f9fafb;border:1px solid var(--line);border-radius:12px;padding:12px}.metric b{font-size:20px;display:block}.metric small{color:var(--muted)}
-.bar{height:9px;background:#e5e7eb;border-radius:99px;overflow:hidden}.bar i{display:block;height:100%;background:#111827}
-.entry{padding:13px 0;border-top:1px solid var(--line)}.entry:first-child{border-top:0}.tag{display:inline-block;background:#f3f4f6;border-radius:99px;padding:4px 7px;font-size:11px;margin:2px}
-nav{position:fixed;bottom:0;left:0;right:0;background:white;border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(3,1fr);z-index:10;padding-bottom:env(safe-area-inset-bottom)}
-nav button{background:white;color:var(--muted);border-radius:0;font-size:12px;padding:10px 4px}nav button.active{color:#111827}
-@media(max-width:520px){.grid{grid-template-columns:1fr}.full{grid-column:auto}.metrics{grid-template-columns:1fr 1fr 1fr}}
-</style>
-</head>
-<body>
-<header><h1>🏉 Rugby Preseason Diary</h1><p>Log it. Track it. Build through preseason.</p></header>
-<main>
-<section id="home" class="screen active">
-<div class="card"><h2>Quick start</h2><p class="muted">Record exactly what happened at training, how hard it felt and how your body responded.</p><button id="newBtn">＋ Log training session</button></div>
-<div class="card"><h2>This preseason</h2><div class="metrics"><div class="metric"><b id="mSessions">0</b><small>Sessions</small></div><div class="metric"><b id="mMinutes">0</b><small>Minutes</small></div><div class="metric"><b id="mLoad">0</b><small>Training load</small></div></div></div>
-<div class="card"><h2>Latest session</h2><div id="latest" class="muted">No sessions logged yet.</div></div>
-</section>
-
-<section id="log" class="screen">
-<div class="card"><h2>Training session</h2><form id="form">
-<div class="grid">
-<div><label>Date</label><input id="date" type="date" required></div>
-<div><label>Preseason week</label><input id="week" type="number" min="1" value="1"></div>
-<div><label>Session type</label><select id="type"><option>Team training</option><option>Skills</option><option>Conditioning</option><option>Gym</option><option>Sprints</option><option>Match / trial</option><option>Recovery</option><option>Other</option></select></div>
-<div><label>Duration (minutes)</label><input id="duration" type="number" min="1" max="300" required></div>
-<div class="full"><label>What happened at training?</label><textarea id="what" placeholder="Warm-up, passing, kicking, attack, defence, contact, conditioning, game..."></textarea></div>
-</div>
-
-<h2 style="margin-top:18px">Intensity</h2>
-<div class="grid">
-<div><label>Overall RPE (1–10)</label><div class="scale" data-name="rpe"></div></div>
-<div><label>Fitness / conditioning</label><div class="scale" data-name="fitness"></div></div>
-<div><label>Contact intensity</label><div class="scale" data-name="contact"></div></div>
-<div><label>Speed / sprint intensity</label><div class="scale" data-name="speed"></div></div>
-<div><label>Technical difficulty</label><div class="scale" data-name="technical"></div></div>
-<div><label>Overall feel</label><select id="hard"><option>Very easy</option><option>Easy</option><option>Moderate</option><option>Hard</option><option>Very hard</option><option>Max effort</option></select></div>
-</div>
-
-<h2 style="margin-top:18px">How did you feel?</h2>
-<div class="grid">
-<div><label>Before training</label><div class="scale" data-name="before"></div></div>
-<div><label>During training</label><div class="scale" data-name="during"></div></div>
-<div><label>After training</label><div class="scale" data-name="after"></div></div>
-<div><label>Energy after</label><input id="energy" type="number" min="1" max="10" value="7"></div>
-</div>
-
-<h2 style="margin-top:18px">Body check — pain 0–10</h2>
-<div class="grid">
-<div><label>Knee</label><input id="knee" type="number" min="0" max="10" value="0"></div>
-<div><label>Hamstring</label><input id="hamstring" type="number" min="0" max="10" value="0"></div>
-<div><label>Quad</label><input id="quad" type="number" min="0" max="10" value="0"></div>
-<div><label>Calf</label><input id="calf" type="number" min="0" max="10" value="0"></div>
-<div><label>Other</label><input id="otherPain" type="number" min="0" max="10" value="0"></div>
-<div><label>Post-training soreness</label><input id="soreness" type="number" min="0" max="10" value="0"></div>
-</div>
-
-<h2 style="margin-top:18px">Performance</h2>
-<div class="grid">
-<div><label>What went well?</label><textarea id="went"></textarea></div>
-<div><label>What was difficult?</label><textarea id="difficult"></textarea></div>
-<div><label>Coach feedback</label><textarea id="coach"></textarea></div>
-<div><label>Something to improve</label><textarea id="improve"></textarea></div>
-<div class="full"><label>Anything else to remember?</label><textarea id="notes"></textarea></div>
-</div>
-
-<h2 style="margin-top:18px">Recovery</h2>
-<div class="grid">
-<div><label>Sleep last night (hours)</label><input id="sleep" type="number" min="0" max="16" step=".5" value="8"></div>
-<div><label>Recovery completed</label><select id="recovery"><option>Yes</option><option>Partly</option><option>No</option></select></div>
-</div>
-<div class="actions" style="margin-top:16px"><button type="submit">Save session</button><button type="button" class="secondary" id="cancel">Cancel</button></div>
-<p id="msg" class="muted"></p>
-</form></div>
-</section>
-
-<section id="dashboard" class="screen">
-<div class="card"><h2>📊 Dashboard</h2><div class="metrics"><div class="metric"><b id="dSessions">0</b><small>Sessions</small></div><div class="metric"><b id="dMinutes">0</b><small>Minutes</small></div><div class="metric"><b id="dLoad">0</b><small>Total load</small></div><div class="metric"><b id="dRpe">0</b><small>Avg RPE</small></div><div class="metric"><b id="dPain">0</b><small>Avg pain</small></div><div class="metric"><b id="dHard">—</b><small>Highest RPE</small></div></div></div>
-<div class="card"><h2>Weekly workload</h2><div id="weeks" class="muted">No data yet.</div></div>
-<div class="card"><h2>Recent sessions</h2><div id="recent" class="muted">No sessions yet.</div></div>
-</section>
-
-<section id="history" class="screen">
-<div class="card"><h2>📖 Training history</h2><div class="actions"><button id="export">Export diary</button><button id="clearAll" class="danger">Delete all data</button></div><div id="historyList" style="margin-top:12px"></div></div>
-</section>
-</main>
-
-<nav><button data-screen="home" class="active">🏠<br>Home</button><button data-screen="dashboard">📊<br>Dashboard</button><button data-screen="history">📖<br>History</button></nav>
-
-<script>
-const KEY="rugby_preseason_diary_v1";
-let sessions=JSON.parse(localStorage.getItem(KEY)||"[]");
-const $=s=>document.querySelector(s), $$=s=>document.querySelectorAll(s);
-const esc=x=>String(x??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-function today(){return new Date().toISOString().slice(0,10)}
-$("#date").value=today();
-document.querySelectorAll(".scale").forEach(box=>{
- const name=box.dataset.name;
- for(let i=1;i<=10;i++){const l=document.createElement("label");l.innerHTML=`<input type="radio" name="${name}" value="${i}" ${i===1?"checked":""}><span>${i}</span>`;box.appendChild(l)}
-});
-function scale(n){return Number(document.querySelector(`input[name="${n}"]:checked`)?.value||1)}
-function persist(){localStorage.setItem(KEY,JSON.stringify(sessions))}
-function show(id){$$(".screen").forEach(x=>x.classList.toggle("active",x.id===id));$$("nav button").forEach(x=>x.classList.toggle("active",x.dataset.screen===id));render()}
-$$("nav button").forEach(b=>b.addEventListener("click",()=>show(b.dataset.screen)));
-$("#newBtn").onclick=()=>show("log");$("#cancel").onclick=()=>show("home");
-
-$("#form").addEventListener("submit",e=>{
- e.preventDefault();
- const duration=Math.max(1,Number($("#duration").value)||0),rpe=scale("rpe");
- const s={id:Date.now(),date:$("#date").value,week:Number($("#week").value)||1,type:$("#type").value,duration,rpe,load:duration*rpe,
- what:$("#what").value,fitness:scale("fitness"),contact:scale("contact"),speed:scale("speed"),technical:scale("technical"),hard:$("#hard").value,
- before:scale("before"),during:scale("during"),after:scale("after"),energy:Number($("#energy").value)||0,
- knee:Number($("#knee").value)||0,hamstring:Number($("#hamstring").value)||0,quad:Number($("#quad").value)||0,calf:Number($("#calf").value)||0,otherPain:Number($("#otherPain").value)||0,soreness:Number($("#soreness").value)||0,
- went:$("#went").value,difficult:$("#difficult").value,coach:$("#coach").value,improve:$("#improve").value,notes:$("#notes").value,sleep:Number($("#sleep").value)||0,recovery:$("#recovery").value};
- sessions.unshift(s);persist();$("#msg").textContent=`Saved — training load ${s.load}.`;render();setTimeout(()=>show("home"),500);
-});
-function render(){
- const total=sessions.reduce((a,s)=>a+s.duration,0),load=sessions.reduce((a,s)=>a+s.load,0);
- $("#mSessions").textContent=sessions.length;$("#mMinutes").textContent=total;$("#mLoad").textContent=load;
- $("#dSessions").textContent=sessions.length;$("#dMinutes").textContent=total;$("#dLoad").textContent=load;
- $("#dRpe").textContent=sessions.length?(sessions.reduce((a,s)=>a+s.rpe,0)/sessions.length).toFixed(1):"0";
- $("#dHard").textContent=sessions.length?Math.max(...sessions.map(s=>s.rpe)):"—";
- const pains=sessions.flatMap(s=>[s.knee,s.hamstring,s.quad,s.calf,s.otherPain]);
- $("#dPain").textContent=pains.length?(pains.reduce((a,x)=>a+x,0)/pains.length).toFixed(1):"0";
- if(sessions[0])$("#latest").innerHTML=`<b>${esc(sessions[0].date)} · ${esc(sessions[0].type)}</b><p class="muted">${sessions[0].duration} min · RPE ${sessions[0].rpe}/10 · Load ${sessions[0].load}</p><p>${esc(sessions[0].what||"No description entered.")}</p>`;
- else $("#latest").textContent="No sessions logged yet.";
- const weeks={};sessions.forEach(s=>{weeks[s.week]??={load:0,min:0,count:0};weeks[s.week].load+=s.load;weeks[s.week].min+=s.duration;weeks[s.week].count++});
- const max=Math.max(1,...Object.values(weeks).map(x=>x.load));
- $("#weeks").innerHTML=Object.keys(weeks).sort((a,b)=>a-b).map(w=>`<div style="margin-bottom:14px"><div style="display:flex;justify-content:space-between"><b>Week ${esc(w)}</b><span>${weeks[w].count} sessions · ${weeks[w].min} min · ${weeks[w].load} load</span></div><div class="bar"><i style="width:${weeks[w].load/max*100}%"></i></div></div>`).join("")||"No data yet.";
- $("#recent").innerHTML=sessions.slice(0,5).map(s=>`<div class="entry"><b>${esc(s.date)}</b> · ${esc(s.type)} <span class="tag">RPE ${s.rpe}</span><span class="tag">Load ${s.load}</span><p class="muted">${esc(s.what||"No description.")}</p></div>`).join("")||"No sessions yet.";
- $("#historyList").innerHTML=sessions.map(s=>`<div class="entry"><b>${esc(s.date)} · Week ${s.week}</b><br><span class="tag">${esc(s.type)}</span><span class="tag">${s.duration} min</span><span class="tag">RPE ${s.rpe}/10</span><span class="tag">Load ${s.load}</span><p><b>What happened:</b> ${esc(s.what||"—")}</p><p><b>Went well:</b> ${esc(s.went||"—")}</p><p><b>Improve:</b> ${esc(s.improve||"—")}</p><p class="muted">Knee ${s.knee}/10 · soreness ${s.soreness}/10 · sleep ${s.sleep}h</p></div>`).join("")||'<p class="muted">No sessions yet.</p>';
-}
-$("#export").onclick=()=>{const blob=new Blob([JSON.stringify(sessions,null,2)],{type:"application/json"}),a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="rugby-preseason-diary.json";a.click();URL.revokeObjectURL(a.href)};
-$("#clearAll").onclick=()=>{if(confirm("Delete every saved training session? This cannot be undone.")){sessions=[];persist();render()}};
-if("serviceWorker"in navigator)navigator.serviceWorker.register("sw.js").catch(()=>{});
-render();
-</script>
-</body></html>
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#111827"><link rel="manifest" href="manifest.json"><title>Preseason HQ</title>
+<style>body{font-family:system-ui;margin:0;background:#f3f4f6;color:#111827}header{background:#111827;color:#fff;padding:18px}main{max-width:700px;margin:auto;padding:14px 14px 80px}.card{background:#fff;padding:15px;border-radius:16px;margin-bottom:12px}input,select,textarea{width:100%;box-sizing:border-box;padding:10px;margin:4px 0 10px;border:1px solid #d1d5db;border-radius:9px}button{padding:10px;border:0;border-radius:9px;font-weight:700}button.primary{background:#111827;color:#fff}.tabs{display:flex;gap:5px;margin-bottom:12px}.tabs button{flex:1}.page{display:none}.page.on{display:block}.grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.set{display:grid;grid-template-columns:35px 35px 1fr 1fr;gap:5px;align-items:center}.set input[type=checkbox]{width:18px}.item{border-top:1px solid #eee;padding:9px 0}.muted{color:#6b7280;font-size:12px}@media(max-width:500px){.grid{grid-template-columns:1fr}}</style></head>
+<body><header><h2 style="margin:0">🏉 Preseason HQ</h2><small>Training • Gym • Rehab • Automatic PRs</small></header><main>
+<div class="tabs"><button onclick="show('train')">Training</button><button onclick="show('gym')">Gym</button><button onclick="show('dash')">Dashboard</button></div>
+<section id="train" class="page on"><div class="card"><h3>Log training</h3><div class="grid"><div>Date<input id="date" type="date"></div><div>Week<input id="week" type="number" value="1"></div><div>Type<select id="type"><option>Team training</option><option>Skills</option><option>Conditioning</option><option>Sprint / speed</option><option>Contact</option><option>Match / trial</option><option>Recovery</option></select></div><div>Duration (min)<input id="dur" type="number"></div></div>Focus<input id="focus">Everything that happened<textarea id="notes"></textarea>
+Overall RPE <span id="rv">5</span>/10<input id="rpe" type="range" min="1" max="10" value="5" oninput="rv.textContent=value"><div class="grid"><div>Knee 0–10<input id="knee" type="number" min="0" max="10" value="0"></div><div>Hamstring<input id="ham" type="number" min="0" max="10" value="0"></div><div>Quad<input id="quad" type="number" min="0" max="10" value="0"></div><div>Calf<input id="calf" type="number" min="0" max="10" value="0"></div></div>What went well<textarea id="well"></textarea>What to improve<textarea id="improve"></textarea>Coach feedback<textarea id="coach"></textarea>Recovery / soreness<textarea id="recovery"></textarea><button class="primary" onclick="saveTrain()">Save session</button></div></section>
+<section id="gym" class="page"><div class="card"><h3>Gym tracker</h3>Date<input id="gdate" type="date">Gym RPE<input id="grpe" type="number" value="7" min="1" max="10"><div id="ex"></div><button class="primary" onclick="saveGym()">Save gym + update PRs</button></div><div class="card"><h3>🏆 Automatic PR board</h3><div id="prs"></div></div></section>
+<section id="dash" class="page"><div class="card"><h3>Dashboard</h3><div id="stats"></div><h3>History</h3><div id="history"></div><button onclick="exportData()">Export all data</button></div></section>
+</main><script>
+const K='preseasonHQ',EX=['Squat','Bench press','Romanian deadlift','Bulgarian split squat','Hip thrust','Calf raise','Leg press','Lat pulldown','Row','Other'];let D=JSON.parse(localStorage.getItem(K)||'{"training":[],"gym":[],"prs":{}}');const $=x=>document.getElementById(x),n=x=>+$(x).value||0;date.value=gdate.value=new Date().toISOString().slice(0,10);
+function show(x){document.querySelectorAll('.page').forEach(p=>p.classList.remove('on'));$(x).classList.add('on');render()}
+function store(){localStorage.setItem(K,JSON.stringify(D));render()}
+function saveTrain(){let x={date:date.value,week:n('week'),type:type.value,dur:n('dur'),focus:focus.value,notes:notes.value,rpe:n('rpe'),knee:n('knee'),ham:n('ham'),quad:n('quad'),calf:n('calf'),well:well.value,improve:improve.value,coach:coach.value,recovery:recovery.value};x.load=x.dur*x.rpe;D.training.unshift(x);store();alert('Saved')}
+ex.innerHTML=EX.map((e,i)=>`<div class="item"><b>${e}</b><div class="set"><small>Set</small><small>✓</small><small>Weight kg</small><small>Reps</small></div>${[1,2,3,4,5].map(s=>`<div class="set"><span>${s}</span><input id="d${i}_${s}" type="checkbox"><input id="w${i}_${s}" type="number" step=".5"><input id="q${i}_${s}" type="number"></div>`).join('')}</div>`).join('');
+function saveGym(){let z={date:gdate.value,rpe:n('grpe'),exercises:[]};EX.forEach((name,i)=>{let sets=[];for(let s=1;s<=5;s++){let done=$(`d${i}_${s}`).checked,w=+$(`w${i}_${s}`).value||0,r=+$(`q${i}_${s}`).value||0;if(done||w||r){let est=w*(1+r/30);sets.push({done,w,r,est});if(w&&r&&est>(D.prs[name]?.est||0))D.prs[name]={est,w,r,date:z.date}}}if(sets.length)z.exercises.push({name,sets})});D.gym.unshift(z);store();alert('Saved — PRs updated automatically')}
+function render(){let w=D.training.length?Math.max(...D.training.map(x=>x.week)):1,a=D.training.filter(x=>x.week===w),load=a.reduce((s,x)=>s+x.load,0);stats.innerHTML=`<b>Week ${w}</b><br>Sessions: ${a.length}<br>Training load: ${load}<br>Gym sessions: ${D.gym.length}<br>PRs: ${Object.keys(D.prs).length}`;let p=Object.entries(D.prs);prs.innerHTML=p.length?p.map(([k,x])=>`<div class="item"><b>${k}</b><br>${x.est.toFixed(1)} kg estimated 1RM <span class="muted">${x.w}kg × ${x.r}, ${x.date}</span></div>`).join(''):'<span class="muted">No PRs yet.</span>';history.innerHTML=D.training.map(x=>`<div class="item"><b>🏉 ${x.date} ${x.type}</b><br>Week ${x.week} • ${x.dur}min • RPE ${x.rpe} • Load ${x.load}</div>`).join('')+D.gym.map(x=>`<div class="item"><b>🏋️ ${x.date} Gym</b><br>${x.exercises.length} exercises • RPE ${x.rpe}</div>`).join('')}
+function exportData(){let b=new Blob([JSON.stringify(D,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='preseason-hq-data.json';a.click()}render();if('serviceWorker'in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});
+</script></body></html>
